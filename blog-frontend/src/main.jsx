@@ -35,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
-      {/* 💡 개발 모드에서 캐시 상태를 한눈에 볼 수 있는 도구 (배포 시 자동 제외됨) */}
+      {/*  개발 모드에서 캐시 상태를 한눈에 볼 수 있는 도구 (배포 시 자동 제외됨) */}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
