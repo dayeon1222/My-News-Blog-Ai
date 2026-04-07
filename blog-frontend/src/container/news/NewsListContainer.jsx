@@ -22,9 +22,7 @@ const NewsListContainer = () => {
    * 경로(pathname)와 페이지 번호를 파라미터로 전달하여 해당 데이터를 가져옵니다.
    */
   const fetchNews = async () => {
-    const response = await client.get(
-      `${API}/api/news?page=${page}&path=${pathname}`,
-    );
+    const response = await API.get(`/api/news?page=${page}&path=${pathname}`);
     return response.data;
   };
 
