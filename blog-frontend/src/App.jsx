@@ -5,7 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 // axios 전역 설정
-axios.defaults.baseURL = 'https://my-news-blog-ai.onrender.com';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 // ---  최적화 포인트 1: 코드 분할 (Lazy Loading) ---
