@@ -1,2 +1,2 @@
-const API = import.meta.env.VITE_API_URL;
+const API = 'https://my-news-blog-ai.onrender.com';
 export default API;
