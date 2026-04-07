@@ -48,9 +48,7 @@ const PostListContainer = () => {
   } = useQuery({
     queryKey: ['posts', page],
     queryFn: () =>
-      axios
-        .get(`http://localhost:4000/api/posts?page=${page}`)
-        .then((res) => res.data),
+      axios.get(`${API}/api/posts?page=${page}`).then((res) => res.data),
   });
 
   /**
@@ -59,7 +57,7 @@ const PostListContainer = () => {
    */
   const deleteMutation = useMutation({
     mutationFn: (id) =>
-      axios.delete(`http://localhost:4000/api/posts/${id}`, {
+      axios.delete(`${API}/api/posts/${id}`, {
         withCredentials: true,
       }),
     onSuccess: () => {

@@ -22,7 +22,7 @@ const NewsListContainer = () => {
    */
   const fetchNews = async () => {
     const response = await axios.get(
-      `http://localhost:4000/api/news?page=${page}&path=${pathname}`,
+      `${API}/api/news?page=${page}&path=${pathname}`,
     );
     return response.data;
   };

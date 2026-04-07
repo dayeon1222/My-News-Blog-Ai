@@ -40,7 +40,7 @@ const PostViewerContainer = () => {
        */
       if (!id || id === 'undefined') return null;
 
-      const res = await axios.get(`http://localhost:4000/api/posts/${id}`);
+      const res = await axios.get(`${API}/api/posts/${id}`);
       return res.data;
     },
     /**
@@ -91,7 +91,7 @@ const PostViewerContainer = () => {
   const onConfirm = async () => {
     setModal(false);
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${id}`);
+      await axios.delete(`${API}/api/posts/${id}`);
       navigate('/blog');
     } catch (e) {
       alert('작성자만 삭제할 수 있습니다.');

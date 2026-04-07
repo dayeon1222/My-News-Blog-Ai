@@ -33,7 +33,7 @@ const WriteFormContainer = () => {
   const { data: originalPost } = useQuery({
     queryKey: ['post', id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:4000/api/posts/${id}`);
+      const res = await axios.get(`${API}/api/posts/${id}`);
       return res.data;
     },
     /**
@@ -75,8 +75,8 @@ const WriteFormContainer = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return id
-        ? axios.patch(`http://localhost:4000/api/posts/${id}`, data)
-        : axios.post('http://localhost:4000/api/posts', data);
+        ? axios.patch(`${API}/api/posts/${id}`, data)
+        : axios.post('${API}/api/posts', data);
     },
     /**
      * 요청 성공 시 처리

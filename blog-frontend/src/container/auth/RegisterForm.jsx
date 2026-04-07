@@ -20,7 +20,7 @@ const RegisterForm = () => {
   // [Mutation] 회원가입 서버 요청
   const registerMutation = useMutation({
     mutationFn: (registerData) =>
-      axios.post('http://localhost:4000/api/auth/register', registerData),
+      axios.post('${API}/api/auth/register', registerData),
 
     onSuccess: () => {
       alert('회원가입 성공! 로그인해 주세요.');

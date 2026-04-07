@@ -18,7 +18,7 @@ const LoginForm = () => {
   const loginMutation = useMutation({
     // 실제 서버와 통신하는 함수
     mutationFn: (loginData) =>
-      axios.post('http://localhost:4000/api/auth/login', loginData, {
+      axios.post(`${API}/api/auth/login`, loginData, {
         withCredentials: true, // 쿠키(JWT) 공유를 위한 필수 설정!
       }),
 
