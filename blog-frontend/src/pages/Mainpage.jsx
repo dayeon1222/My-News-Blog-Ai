@@ -190,7 +190,7 @@ const MainPage = () => {
   } = useQuery({
     queryKey: ['latestNews'],
     queryFn: async () => {
-      const { data } = await axios.get(`${API}/api/news/latest`);
+      const { data } = await client.get(`${API}/api/news/latest`);
       return data;
     },
     staleTime: 1000 * 60 * 5,

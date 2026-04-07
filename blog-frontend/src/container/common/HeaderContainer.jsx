@@ -10,7 +10,7 @@ import API from '../../api/client';
  */
 const checkAPI = async () => {
   try {
-    const response = await axios.get(`${API}/api/auth/check`, {
+    const response = await client.get(`${API}/api/auth/check`, {
       withCredentials: true, // 중요: 브라우저에 저장된 쿠키(세션/토큰)를 함께 전송
     });
     return response.data; // 로그인 성공 시 유저 정보 반환
@@ -49,7 +49,11 @@ const HeaderContainer = () => {
   const onLogout = async () => {
     try {
       // 백엔드에 로그아웃 요청 (서버측 쿠키/세션 파기)
-      await axios.post(`${API}/api/auth/logout`, {}, { withCredentials: true });
+      await client.post(
+        `${API}/api/auth/logout`,
+        {},
+        { withCredentials: true },
+      );
 
       // 클라이언트 측 흔적 지우기
       localStorage.removeItem('user');

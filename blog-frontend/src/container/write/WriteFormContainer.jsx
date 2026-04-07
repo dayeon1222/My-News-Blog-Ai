@@ -34,7 +34,7 @@ const WriteFormContainer = () => {
   const { data: originalPost } = useQuery({
     queryKey: ['post', id],
     queryFn: async () => {
-      const res = await axios.get(`${API}/api/posts/${id}`);
+      const res = await client.get(`${API}/api/posts/${id}`);
       return res.data;
     },
     /**
@@ -76,8 +76,8 @@ const WriteFormContainer = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return id
-        ? axios.patch(`${API}/api/posts/${id}`, data)
-        : axios.post(`${API}/api/posts`, data);
+        ? client.patch(`${API}/api/posts/${id}`, data)
+        : client.post(`${API}/api/posts`, data);
     },
     /**
      * 요청 성공 시 처리
