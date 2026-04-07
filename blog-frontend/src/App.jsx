@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HeaderContainer from './container/common/HeaderContainer';
 import axios from 'axios';
@@ -31,6 +31,9 @@ const LoadingFallback = styled.div`
 `;
 
 const App = () => {
+  useEffect(() => {
+    console.log(import.meta.env.VITE_API_URL);
+  }, []);
   return (
     <>
       <HeaderContainer />
