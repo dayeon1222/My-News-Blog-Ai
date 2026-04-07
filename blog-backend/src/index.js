@@ -20,7 +20,7 @@ mongoose
 // 3. 미들웨어 설정 (서버의 기본 옵션들)
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://my-news-blog-ai.netlify.app'], // 프론트엔드(Vite) 주소 허용
+    origin: ['http://localhost:5173', 'https://my-news-blog-ai.netlify.app'],
     credentials: true, // 쿠키(JWT) 공유를 허용하는 아주 중요한 설정!
   }),
 );
