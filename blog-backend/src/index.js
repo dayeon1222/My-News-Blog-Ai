@@ -20,8 +20,21 @@ mongoose
 // 3. 미들웨어 설정 (서버의 기본 옵션들)
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://my-news-blog-ai.netlify.app'],
-    credentials: true, // 쿠키(JWT) 공유를 허용하는 아주 중요한 설정!
+    origin: (ctx) => {
+      const validOrigins = [
+        'http://localhost:5173',
+        'https://my-news-blog-ai.netlify.app',
+      ];
+      const origin = ctx.get('Origin');
+
+      // 요청온 주소(origin)가 허용 목록에 있으면 그 주소를 그대로 돌려줌
+      if (validOrigins.includes(origin)) {
+        return origin;
+      }
+      // 목록에 없으면 기본적으로 배포된 주소 허용 (또는 null)
+      return 'https://my-news-blog-ai.netlify.app';
+    },
+    credentials: true,
   }),
 );
 app.use(bodyParser()); // 요청 본문(JSON 등)을 해석해줌
