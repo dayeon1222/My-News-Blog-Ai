@@ -32,7 +32,7 @@ const LoadingFallback = styled.div`
 
 const App = () => {
   useEffect(() => {
-    console.log(버전2);
+    console.log('버전2');
   }, []);
   return (
     <>
