@@ -3,6 +3,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import NewsList from '../../components/news/NewsList';
+import API from '../../api/client';
 
 /**
  * [ Container Component ]

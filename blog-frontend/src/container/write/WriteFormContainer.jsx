@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import WriteForm from '../../components/write/WriteForm';
+import API from '../../api/client';
 
 /**
  * 게시글 작성 및 수정을 위한 데이터 로직을 관리하는 컨테이너 컴포넌트

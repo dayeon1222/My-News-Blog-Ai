@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/common/Header';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import API from '../../api/client';
 
 /**
  * [ API Section: 사용자 상태 체크 ]

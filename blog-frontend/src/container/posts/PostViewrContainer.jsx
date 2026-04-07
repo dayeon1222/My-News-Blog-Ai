@@ -5,6 +5,7 @@ import axios from 'axios';
 import PostViewer from '../../components/Post/PostViewer';
 import PostActionButtons from '../../components/common/PostActionButtons';
 import Modal from '../../components/common/Modal';
+import API from '../../api/client';
 
 /**
  * 특정 게시글의 상세 데이터를 관리하고 관련 액션(수정, 삭제)을 처리하는 컨테이너 컴포넌트

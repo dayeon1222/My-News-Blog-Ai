@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import PostList from '../../components/Post/PostList';
 import PostListSkeleton from '../../components/Post/PostListSkeleton';
+import API from '../../api/client';
 
 /**
  * 포스트 리스트의 비즈니스 로직을 담당하는 컨테이너 컴포넌트

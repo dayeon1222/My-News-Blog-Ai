@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthForm from '../../components/auth/AuthForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import API from '../../api/client';
 
 /**
  * [컨테이너 컴포넌트] 로그인 로직과 UI(AuthForm)를 연결
