@@ -49,7 +49,7 @@ const HeaderContainer = () => {
   const onLogout = async () => {
     try {
       // 백엔드에 로그아웃 요청 (서버측 쿠키/세션 파기)
-      await axios.post('${API}/api/auth/logout', {}, { withCredentials: true });
+      await axios.post(`${API}/api/auth/logout`, {}, { withCredentials: true });
 
       // 클라이언트 측 흔적 지우기
       localStorage.removeItem('user');

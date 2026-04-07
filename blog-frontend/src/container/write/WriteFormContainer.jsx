@@ -77,7 +77,7 @@ const WriteFormContainer = () => {
     mutationFn: (data) => {
       return id
         ? axios.patch(`${API}/api/posts/${id}`, data)
-        : axios.post('${API}/api/posts', data);
+        : axios.post(`${API}/api/posts`, data);
     },
     /**
      * 요청 성공 시 처리
