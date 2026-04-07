@@ -5,9 +5,10 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 // axios 전역 설정
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || '';
 axios.defaults.withCredentials = true;
 
-// --- 💡 최적화 포인트 1: 코드 분할 (Lazy Loading) ---
+// ---  최적화 포인트 1: 코드 분할 (Lazy Loading) ---
 // 페이지를 필요한 시점에만 불러와서 초기 번들 크기를 줄입니다.
 const MainPage = lazy(() => import('./pages/Mainpage'));
 const NewsListPage = lazy(() => import('./pages/NewsListPage'));
@@ -15,8 +16,8 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const PostPage = lazy(() => import('./pages/PostPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
-const WriteFormContainer = lazy(() =>
-  import('./container/write/WriteFormContainer'),
+const WriteFormContainer = lazy(
+  () => import('./container/write/WriteFormContainer'),
 );
 
 // 로딩 중에 보여줄 단순한 UI (또는 스피너)
@@ -33,7 +34,7 @@ const App = () => {
   return (
     <>
       <HeaderContainer />
-      {/* --- 💡 최적화 포인트 2: Suspense 활용 --- */}
+      {/* ---  최적화 포인트 2: Suspense 활용 --- */}
       {/* Lazy 로딩되는 동안 보여줄 fallback UI를 지정합니다. */}
       <Suspense
         fallback={<LoadingFallback>잠시만 기다려주세요...</LoadingFallback>}
