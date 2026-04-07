@@ -1,0 +1,30 @@
+{
+  "name": "blog-backend",
+  "packageManager": "yarn@4.3.1",
+  "type": "module",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@koa/cors": "^5.0.0",
+    "axios": "^1.13.2",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "eslint-config-prettier": "^10.1.8",
+    "esm": "^3.2.25",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "koa": "^3.1.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^14.0.0",
+    "mongoose": "^9.0.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^16.5.0",
+    "nodemon": "^3.1.11"
+  },
+  "scripts": {
+    "start": "node -r esm src",
+    "start:dev": "nodemon --watch src/ src/index.js"
+  }
+}
