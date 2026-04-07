@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HeaderContainer from './container/common/HeaderContainer';
 import axios from 'axios';
@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 
 // ---  최적화 포인트 1: 코드 분할 (Lazy Loading) ---
 // 페이지를 필요한 시점에만 불러와서 초기 번들 크기를 줄입니다.
-const MainPage = lazy(() => import('./pages/Mainpage'));
+const Mainpage = lazy(() => import('./pages/Mainpage'));
 const NewsListPage = lazy(() => import('./pages/NewsListPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const PostPage = lazy(() => import('./pages/PostPage'));
@@ -31,9 +31,6 @@ const LoadingFallback = styled.div`
 `;
 
 const App = () => {
-  useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
-  }, []);
   return (
     <>
       <HeaderContainer />
@@ -43,7 +40,7 @@ const App = () => {
         fallback={<LoadingFallback>잠시만 기다려주세요...</LoadingFallback>}
       >
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<Mainpage />} />
           <Route path="/news" element={<NewsListPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<PostPage />} />
