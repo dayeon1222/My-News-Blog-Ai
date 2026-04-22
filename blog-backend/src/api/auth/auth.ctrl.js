@@ -11,13 +11,26 @@ export const register = async (ctx) => {
       .min(3) // 최소 3글자
       .max(20) //최대 20글자
       .required(), // 반드시 있어야함
-    password: Joi.string().required(), // 문자열로 반드시 있어야함
+    password: Joi.string()
+      .min(8)
+      .pattern(
+        new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])'),
+      ) // 영문 대소문자, 숫자, 특수문자 조합
+      .required()
+      .messages({
+        'string.pattern.base':
+          '비밀번호는 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.',
+        'string.min': '비밀번호는 최소 8자 이상이어야 합니다.',
+      }), // 문자열로 반드시 있어야함
   });
   const result = schema.validate(ctx.request.body); //검증결과 처리
   if (result.error) {
     //결과값이 에러면
     ctx.status = 400; //400 데이터 형식 이상함
-    ctx.body = result.error; // 에러의 구체적인 내용(예: "아이디가 너무 짧음")을 응답 데이터로 보냄
+    // 에러 메시지 가공: result.error 전체를 보내지 않고 핵심 메시지만 추출
+    ctx.body = {
+      message: result.error.details[0].message,
+    };
     return; // 종료
   }
   const { username, password } = ctx.request.body; // 클라이언트가 보낸 데이터(body)에서 username과 password만 추출하여 변수에 담음
@@ -55,6 +68,9 @@ export const register = async (ctx) => {
 export const login = async (ctx) => {
   const { username, password } = ctx.request.body;
   // 클라이언트가 보낸 데이터(body)에서 username과 password만 추출하여 변수에 담음
+  const accessToken = user.generateToken(); // 유효기간 1시간
+  const refreshToken = user.generateRefreshToken(); // 유효기간 7일
+
   if (!username || !password) {
     //데이터가 배달이 왔나확인
     ctx.status = 401; //401(로그인하고 오기) 에러
@@ -79,7 +95,12 @@ export const login = async (ctx) => {
     const token = user.generateToken(); // 해당 유저 전용 로그인 인증 토큰 생성
     ctx.cookies.set('access_token', token, {
       // 보안을 위해 httpOnly 설정을 적용하여 쿠키에 토큰 저장 (7일간 유지)
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60,
+      httpOnly: true,
+    });
+    // Refresh Token도 쿠키
+    ctx.cookies.set('refresh_token', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
   } catch (e) {
