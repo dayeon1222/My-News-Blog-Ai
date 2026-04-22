@@ -51,5 +51,18 @@ UserSchema.methods.generateToken = function () {
   return token;
 };
 
+// [메서드] Refresh Token 발행 (긴 유효기간: 7일) - 추가된 부분!
+UserSchema.methods.generateRefreshToken = function () {
+  const refreshToken = jwt.sign(
+    {
+      _id: this.id,
+    },
+    process.env.JWT_SECRET, // 또는 별도의 REFRESH_SECRET 사용 권장
+    {
+      expiresIn: '7d',
+    },
+  );
+  return refreshToken;
+};
 const User = mongoose.model('User', UserSchema);
 export default User;
