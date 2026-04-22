@@ -64,42 +64,48 @@ export const register = async (ctx) => {
     //500-서버코드 실행하다 에러
   }
 };
-//로그인
+// 로그인
 export const login = async (ctx) => {
   const { username, password } = ctx.request.body;
-  // 클라이언트가 보낸 데이터(body)에서 username과 password만 추출하여 변수에 담음
-  const accessToken = user.generateToken(); // 유효기간 1시간
-  const refreshToken = user.generateRefreshToken(); // 유효기간 7일
 
   if (!username || !password) {
-    //데이터가 배달이 왔나확인
-    ctx.status = 401; //401(로그인하고 오기) 에러
-    return; //종료
+    ctx.status = 401;
+    return;
   }
+
   try {
-    //username, password가 우리 회원인가확인 아닐시 401에러 후 종료
-    //"아이디는 맞는데 비번이 틀려요"라고 친절히 알려주면,
-    // 해커가 "아, 이 아이디는 존재하는구나! 이제 비번만 털면 되겠다"라고 타겟을 좁힐 수 있기 때문에 401에러
+    // DB에서 사용자를 찾습니다.
     const user = await User.findByUsername(username);
     if (!user) {
       ctx.status = 401;
       return;
     }
+
+    // 비밀번호가 맞는지 확인합니다.
     const valid = await user.checkPassword(password);
     if (!valid) {
       ctx.status = 401;
       return;
     }
-    ctx.body = user.serialize(); // 민감한 정보(비밀번호 등)를 제외하고 사용자 정보를 응답 바디에 담음
 
-    const token = user.generateToken(); // 해당 유저 전용 로그인 인증 토큰 생성
-    ctx.cookies.set('access_token', token, {
-      // 보안을 위해 httpOnly 설정을 적용하여 쿠키에 토큰 저장 (7일간 유지)
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+    // 사용자가 확인된 '후'에 토큰을 생성합니다.
+    const accessToken = user.generateToken();
+    const refreshToken = user.generateRefreshToken(); // User 모델에 정의되어 있어야 함
+
+    ctx.body = user.serialize();
+
+    // 쿠키에 저장
+    ctx.cookies.set('access_token', accessToken, {
+      maxAge: 1000 * 60 * 60, // 1시간 (Access Token)
+      httpOnly: true,
+    });
+
+    ctx.cookies.set('refresh_token', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7일 (Refresh Token)
       httpOnly: true,
     });
   } catch (e) {
-    ctx.throw(500, e); // 서버 내부 에러 발생 시 500 상태 코드와 에러 내용 반환
+    ctx.throw(500, e);
   }
 };
 
