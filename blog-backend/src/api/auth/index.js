@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import * as authCtrl from './auth.ctrl.js';
+import ratelimit from 'koa-ratelimit';
 
 const auth = new Router(); //새로운 라우터 인스턴스 생성
 
